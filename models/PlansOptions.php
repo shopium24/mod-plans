@@ -2,11 +2,13 @@
 namespace shopium24\mod\plans\models;
 
 use panix\engine\db\ActiveRecord;
+use panix\engine\Html;
+
 class PlansOptions extends ActiveRecord {
 
     const MODULE_ID = 'plans';
 
-    public function getGridColumns() {
+    public function getGridColumns2() {
         return array(
             array(
                 'name' => 'name',
@@ -16,7 +18,7 @@ class PlansOptions extends ActiveRecord {
             array(
                 'name' => 'group_id',
                 'type' => 'raw',
-                'filter' => Html::listData(PlansOptionsGroups::model()->findAll(), 'id', 'name'),
+                'filter' => Html::listData(PlansOptionsGroups::find()->all(), 'id', 'name'),
                 'value' => 'Html::link(Html::encode($data->group->name), array("/admin/plans/groups/update", "id"=>$data->group->id))',
                 'htmlOptions' => array('class' => 'text-center')
             ),

@@ -6,7 +6,7 @@ class PlansOptionsGroups extends ActiveRecord {
 
     const MODULE_ID = 'plans';
 
-    public function getGridColumns() {
+    public function getGridColumns2() {
         return array(
             array(
                 'name' => 'name',
@@ -21,28 +21,6 @@ class PlansOptionsGroups extends ActiveRecord {
                 array('class' => 'ext.sortable.SortableColumn')
             ),
         );
-    }
-
-    public function getForm() {
-        return new CMSForm(array(
-            'attributes' => array(
-                'id' => __CLASS__,
-                'class' => 'form-horizontal',
-            ),
-            'showErrorSummary' => false,
-            'elements' => array(
-                'name' => array(
-                    'type' => 'text',
-                ),
-            ),
-            'buttons' => array(
-                'submit' => array(
-                    'type' => 'submit',
-                    'class' => 'btn btn-success',
-                    'label' => ($this->isNewRecord) ? Yii::t('app', 'CREATE', 1) : Yii::t('app', 'SAVE')
-                )
-            )
-                ), $this);
     }
 
     public function getOptions()
@@ -62,11 +40,10 @@ class PlansOptionsGroups extends ActiveRecord {
      * @return array validation rules for model attributes.
      */
     public function rules() {
-        return array(
-            array('name', 'required'),
-            array('name', 'type', 'type' => 'string'),
-            array('id, name, ordern', 'safe', 'on' => 'search'),
-        );
+        return [
+            [['name'], 'required'],
+            [['name', 'type'], 'type' => 'string'],
+        ];
     }
 
     public static function getCSort() {
@@ -77,21 +54,5 @@ class PlansOptionsGroups extends ActiveRecord {
         return $sort;
     }
 
-
-    /**
-     * Retrieves a list of models based on the current search/filter conditions.
-     * @return ActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-     */
-    public function search() {
-        $criteria = new CDbCriteria;
-        $criteria->order = 'ordern DESC';
-        $criteria->compare('id', $this->id);
-        $criteria->compare('name', $this->name, true);
-      //  $criteria->compare('ordern', $this->ordern);
-        return new ActiveDataProvider($this, array(
-            'criteria' => $criteria,
-                //'sort' => self::getCSort()
-        ));
-    }
 
 }

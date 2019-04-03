@@ -1,19 +1,24 @@
 <?php
+
 namespace shopium24\mod\plans\controllers\admin;
 
+use shopium24\mod\plans\models\PlansOptions;
+use shopium24\mod\plans\models\search\PlansOptionsSearch;
 use Yii;
 use panix\engine\controllers\AdminController;
 
-class OptionsController extends AdminController {
+class OptionsController extends AdminController
+{
 
-    public function actions() {
+    public function actions()
+    {
         return array(
             'delete' => array(
                 'class' => 'ext.adminList.actions.DeleteAction',
             ),
             'sortable' => array(
                 'class' => 'ext.sortable.SortableAction',
-                'model' => PlansOptions::model(),
+                'model' => PlansOptions::find(),
             )
         );
     }
@@ -21,23 +26,22 @@ class OptionsController extends AdminController {
     /**
      * Display discounts list
      */
-    public function actionIndex() {
+    public function actionIndex()
+    {
 
         $this->pageName = Yii::t('plans/default', 'OPTIONS');
-        $this->breadcrumbs = array(
-            $this->module->name => $this->module->adminHomeUrl,
-            $this->pageName
-        );
+        /* $this->breadcrumbs = array(
+             $this->module->name => [],
+             $this->pageName
+         );*/
+        $this->breadcrumbs[] = $this->pageName;
+        $searchModel = new PlansOptionsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
-        $model = new PlansOptions('search');
-
-        if (!empty($_GET['PlansOptions']))
-            $model->attributes = $_GET['PlansOptions'];
-
-        $this->render('index', array(
-            'model' => $model,
-
-        ));
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+        ]);
     }
 
     /**
@@ -52,7 +56,8 @@ class OptionsController extends AdminController {
      * @param bool $new
      * @throws CHttpException
      */
-    public function actionUpdate($new = false) {
+    public function actionUpdate($new = false)
+    {
         if ($new === true)
             $model = new PlansOptions;
         else
@@ -62,7 +67,7 @@ class OptionsController extends AdminController {
             throw new CHttpException(404, Yii::t('plans/admin', 'NO_FOUND_DISCOUNT'));
 
         $this->pageName = ($model->isNewRecord) ? Yii::t('plans/admin', 'Создание опции') :
-                Yii::t('plans/admin', 'Редактирование опции');
+            Yii::t('plans/admin', 'Редактирование опции');
 
 
         $this->breadcrumbs = array(
@@ -70,7 +75,6 @@ class OptionsController extends AdminController {
             Yii::t('plans/default', 'OPTIONS') => $this->createUrl('index'),
             $this->pageName
         );
-
 
 
         $form = new TabForm($model->getForm(), $model);
@@ -88,7 +92,8 @@ class OptionsController extends AdminController {
         $this->render('update', array('model' => $model, 'form' => $form));
     }
 
-    public function saveOptions(PlansOptions $planOption) {
+    public function saveOptions(PlansOptions $planOption)
+    {
         $dontDelete = array();
         if (isset($_POST['options'])) {
             // print_r($_POST['options']);
@@ -98,18 +103,17 @@ class OptionsController extends AdminController {
                 $productOptions = PlansOptionsRel::model()->findByAttributes(array(
                     'plan_id' => $key,
                     'option_id' => $planOption->id,
-                        ));
+                ));
 
                 if (!$productOptions)
                     $productOptions = new PlansOptionsRel();
-
 
 
                 $productOptions->setAttributes(array(
                     'option_id' => $planOption->id,
                     'plan_id' => $key,
                     'value' => $value,
-                        ), false);
+                ), false);
                 //$productOptions->name = $option['name'];
 
                 $productOptions->save(false, false, false);
@@ -123,12 +127,12 @@ class OptionsController extends AdminController {
             $cr->addNotInCondition('t.id', $dontDelete);
             $optionsToDelete = PlansOptionsRel::model()->findAllByAttributes(array(
                 'option_id' => $planOption->id
-                    ), $cr);
+            ), $cr);
         } else {
             // Clear all attribute options
             $optionsToDelete = PlansOptionsRel::model()->findAllByAttributes(array(
                 'option_id' => $planOption->id
-                    ));
+            ));
         }
         if (!empty($optionsToDelete)) {
             foreach ($optionsToDelete as $o)

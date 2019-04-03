@@ -1,6 +1,9 @@
 <?php
 namespace shopium24\mod\plans\controllers\admin;
 
+use shopium24\mod\plans\models\PlansOptionsGroups;
+use shopium24\mod\plans\models\search\PlansOptionsGroupsSearch;
+use Yii;
 use panix\engine\controllers\AdminController;
 class GroupsController extends AdminController {
 
@@ -9,10 +12,7 @@ class GroupsController extends AdminController {
             'delete' => array(
                 'class' => 'ext.adminList.actions.DeleteAction',
             ),
-            'sortable' => array(
-                'class' => 'ext.sortable.SortableAction',
-                'model' => PlansOptionsGroups::model(),
-            )
+
         );
     }
 
@@ -21,22 +21,16 @@ class GroupsController extends AdminController {
      */
     public function actionIndex() {
         $this->pageName = Yii::t('plans/default', 'OPTIONS_GROUP');
-        $this->breadcrumbs = array(
-            $this->module->name => $this->module->adminHomeUrl,
-            $this->pageName
-        );
 
-        $model = new PlansOptionsGroups('search');
+        $this->breadcrumbs[]=$this->pageName;
 
-        if (!empty($_GET['PlansOptionsGroups']))
-            $model->attributes = $_GET['PlansOptionsGroups'];
+        $searchModel = new PlansOptionsGroupsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
-        $dataProvider = $model->search();
-
-        $this->render('index', array(
-            'model' => $model,
+        return $this->render('index', [
             'dataProvider' => $dataProvider,
-        ));
+            'searchModel' => $searchModel,
+        ]);
     }
 
 
