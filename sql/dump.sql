@@ -1,41 +1,127 @@
-
-CREATE TABLE IF NOT EXISTS `{prefix}plans` (
+DROP TABLE IF EXISTS `{prefix}plans`;
+CREATE TABLE `{prefix}plans` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `price` int(11) NOT NULL,
+  `price_month` int(11) NOT NULL,
+  `price_6month` int(11) NOT NULL,
+  `price_year` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
+INSERT INTO `{prefix}plans` (`id`,`name`,`price_month`,`price_6month`,`price_year`) VALUES
+('1','Basic','160','150','140'),
+('2','Standard','500','480','450'),
+('3','Premium','1000','950','900');
 
-INSERT INTO `{prefix}plans` (`id`, `name`) VALUES
-(1, 'Lite',299),
-(2, 'Standard',599),
-(3, 'Pro',699);
-
-
-CREATE TABLE IF NOT EXISTS `{prefix}plans_options` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `group_id` int(11) DEFAULT NULL,
-  `name` varchar(255) NOT NULL,
-  `hint` text,
-  `ordern` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM;
-
-CREATE TABLE IF NOT EXISTS `{prefix}plans_options_groups` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `ordern` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM;
-
-CREATE TABLE IF NOT EXISTS `{prefix}plans_option_rel` (
+DROP TABLE IF EXISTS `{prefix}plans_option_rel`;
+CREATE TABLE `{prefix}plans_option_rel` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `plan_id` int(11) NOT NULL,
   `option_id` int(11) NOT NULL,
   `value` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `option_id` (`option_id`,`plan_id`)
-) ENGINE=MyISAM;
+) ENGINE=MyISAM AUTO_INCREMENT=200 DEFAULT CHARSET=utf8;
 
+INSERT INTO `{prefix}plans_option_rel` (`id`,`plan_id`,`option_id`,`value`) VALUES
+('21','3','3','1'),
+('20','2','3','0'),
+('182','1','12','1'),
+('18','3','2','не ограничено'),
+('17','2','2','10000'),
+('181','1','11','0'),
+('15','3','1','1'),
+('14','2','1','1'),
+('170','1','1','1'),
+('23','2','4','1'),
+('24','3','4','1'),
+('180','1','10','0'),
+('26','2','5','0'),
+('27','3','5','1'),
+('179','1','9','0'),
+('29','2','6','1'),
+('30','3','6','1'),
+('178','1','8','0'),
+('32','2','7','1'),
+('33','3','7','1'),
+('177','1','7','0'),
+('35','2','8','1'),
+('36','3','8','1'),
+('176','1','6','1'),
+('38','2','9','1'),
+('39','3','9','1'),
+('175','1','5','0'),
+('41','2','10','1'),
+('42','3','10','1'),
+('174','1','4','1'),
+('44','2','11','1'),
+('45','3','11','1'),
+('173','1','3','0'),
+('47','2','12','1'),
+('48','3','12','1'),
+('172','1','2','1000'),
+('50','2','13','1'),
+('51','3','13','1'),
+('53','2','14','1'),
+('54','3','14','1'),
+('184','1','14','1'),
+('183','1','13','1'),
+('185','1','15','1'),
+('186','2','15','1'),
+('187','3','15','1'),
+('188','1','16','500 Мб'),
+('189','2','16','1 Гб'),
+('190','3','16','2 Гб'),
+('191','1','17','до 3 шт.'),
+('192','2','17','до 5 шт.'),
+('193','3','17','до 10 шт.'),
+('194','1','18','0'),
+('195','2','18','1'),
+('196','3','18','1'),
+('197','1','19','1'),
+('198','2','19','1'),
+('199','3','19','1');
 
+DROP TABLE IF EXISTS `{prefix}plans_options`;
+CREATE TABLE `{prefix}plans_options` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `hint` text,
+  `ordern` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+
+INSERT INTO `{prefix}plans_options` (`id`,`group_id`,`name`,`hint`,`ordern`) VALUES
+('1','1','Возможность сайта на своём домене ','','14'),
+('2','2','Количество товаров','','18'),
+('3','1','SMS рассылка','','1'),
+('4','1','Email рассылка','','9'),
+('5','1','Интеграция с 1С:Предприятие','','2'),
+('6','1','Поддержка 24/7 ','Поддержка производится по системе тикет','12'),
+('7','1','Система скидок / наценок','','6'),
+('8','1','Экспорт в Яндекс.Маркет ','','7'),
+('9','1','sitemap.xml ','','5'),
+('10','1','Рейтинг товаров ','','4'),
+('11','1','Отзывы о товаре ','','3'),
+('12','1','Импорт/экспорт товаров *.csv','','10'),
+('13','1','Импорт/экспорт товаров *.xml','','11'),
+('14','1','Статистика продаж (график)','','13'),
+('15','1','Адаптивный стартовый шаблон','Целью адаптивного веб-дизайна является универсальность отображения содержимого веб-сайта для различных устройств. Для того, чтобы веб-сайт был удобно просматриваемым с устройств форматов и с экранами различных разрешений, по технологии адаптивного веб-дизайна не нужно создавать отдельные версии веб-сайта для отдельных видов устройств. Один сайт может работать на смартфоне, планшете, ноутбуке и телевизоре с выходом в интернет, то есть на всем спектре устройств
+&copy <b>wikipedia</b>','16'),
+('16','1','Место на диске','Дисковое пространство на сервере, которое предназначено для файлов сайта.','17'),
+('17','2','Изображений в товаре','','19'),
+('18','1','Сравнение товаров','','8'),
+('19','1','Список желаний','','15');
+
+DROP TABLE IF EXISTS `{prefix}plans_options_groups`;
+CREATE TABLE `{prefix}plans_options_groups` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `ordern` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+INSERT INTO `{prefix}plans_options_groups` (`id`,`name`,`ordern`) VALUES
+('1','Основные возможности','2'),
+('2','Товар','1');

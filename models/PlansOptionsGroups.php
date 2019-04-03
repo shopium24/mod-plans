@@ -51,15 +51,12 @@ class PlansOptionsGroups extends ActiveRecord {
         );
     }
 
-    public static function model($className = __CLASS__) {
-        return parent::model($className);
-    }
 
     /**
      * @return string the associated database table name
      */
-    public function tableName() {
-        return '{{plans_options_groups}}';
+    public static function tableName() {
+        return '{{%plans_options_groups}}';
     }
 
     /**
