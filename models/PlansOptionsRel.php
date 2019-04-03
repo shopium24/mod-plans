@@ -14,8 +14,8 @@ class PlansOptionsRel extends ActiveRecord {
     /**
      * @return string the associated database table name
      */
-    public function tableName() {
-        return '{{plans_option_rel}}';
+    public static function tableName() {
+        return '{{%plans_option_rel}}';
     }
 
     /**
