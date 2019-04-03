@@ -1,20 +1,31 @@
+<?php
+use panix\engine\grid\GridView;
+use panix\engine\widgets\Pjax;
 
-    <?php
-    $this->widget('ext.adminList.GridView', array(
-        'dataProvider' => $dataProvider,
-        //'afterAjaxUpdate'=>"function(){registerDatePickers()}",
-        //'filter'=>$model,
-        'name'=>$this->pageName,
-    ));
-    ?>
 
-    <?php
-    Yii::app()->clientScript->registerScript("discountDatepickers", "
-    $('input[name=\"ShopDiscount[start_date]\"], input[name=\"ShopDiscount[end_date]\"]').css({'position':'relative','z-index':101});
-function registerDatePickers(){
+Pjax::begin([
+    'timeout' => 50000,
+    'id' => 'pjax-grid-plans',
+    'linkSelector' => 'a:not(.linkTarget)'
+]);
+echo GridView::widget([
+    'id'=>'grid-plans',
+    'tableOptions' => ['class' => 'table table-striped'],
+    'dataProvider' => $dataProvider,
+    'filterModel' => $searchModel,
+    'layoutOptions' => [
+        'title' => $this->context->pageName,
+        'buttons'=>[
+            [
+                'url'=>['create'],
+                'label'=>Yii::t('plans/admin', 'CREATE_PRODUCT'),
+                'icon'=>'add'
+            ]
+        ]
+    ],
+    'showFooter' => true,
+    //   'footerRowOptions' => ['class' => 'text-center'],
+    'rowOptions' => ['class' => 'sortable-column']
+]);
+Pjax::end();
 
-    $('input[name=\"ShopDiscount[start_date]\"]').datepicker({'dateFormat':'yy-mm-dd'});
-    $('input[name=\"ShopDiscount[end_date]\"]').datepicker({'dateFormat':'yy-mm-dd'});
-}
-registerDatePickers();
-");

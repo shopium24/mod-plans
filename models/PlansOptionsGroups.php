@@ -1,5 +1,5 @@
 <?php
-namespace shopimu24\mod\plans\models;
+namespace shopium24\mod\plans\models;
 
 use panix\engine\db\ActiveRecord;
 class PlansOptionsGroups extends ActiveRecord {
@@ -45,10 +45,9 @@ class PlansOptionsGroups extends ActiveRecord {
                 ), $this);
     }
 
-    public function relations() {
-        return array(
-            'options' => array(self::HAS_MANY, 'PlansOptions', 'group_id')
-        );
+    public function getOptions()
+    {
+        return $this->hasMany(PlansOptions::class, ['group_id' => 'id']);
     }
 
 

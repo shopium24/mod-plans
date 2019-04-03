@@ -1,5 +1,7 @@
 <?php
-namespace shopimu24\mod\plans\migrations;
+
+namespace shopium24\mod\plans\migrations;
+
 /**
  * Generation migrate by PIXELION CMS
  *
@@ -10,9 +12,10 @@ namespace shopimu24\mod\plans\migrations;
  */
 
 use panix\engine\db\Migration;
-use shopimu24\mod\plans\models\PlansOptions;
+use shopium24\mod\plans\models\PlansOptions;
 
-class m190403_051453_plans_options extends Migration {
+class m190403_051453_plans_options extends Migration
+{
 
     /**
      * {@inheritdoc}
@@ -27,6 +30,7 @@ class m190403_051453_plans_options extends Migration {
             'ordern' => $this->integer()->unsigned(),
         ], $this->tableOptions);
 
+        $this->createIndex('ordern', PlansOptions::tableName(), 'ordern', 0);
 
         $this->batchInsert(PlansOptions::tableName(), ['group_id', 'name', 'hint', 'ordern'], [
             [1, 'Возможность сайта на своём домене', '', 14],

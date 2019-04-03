@@ -1,6 +1,6 @@
 <?php
 
-namespace shopimu24\mod\plans;
+namespace shopium24\mod\plans;
 
 use Yii;
 use panix\engine\WebModule;
@@ -10,6 +10,7 @@ class Module extends WebModule
 {
 
 
+    public $icon = 'test';
     public function afterInstall2()
     {
         Yii::$app->database->import($this->id);
@@ -39,23 +40,22 @@ class Module extends WebModule
         return array(
             'plans' => array(
                 'label' => $this->name,
-                'visible' => Yii::$app->user->isSuperuser,
                 'icon' => Html::icon($this->icon),
                 'items' => array(
                     array(
                         'label' => $this->name,
-                        'url' => $this->adminHomeUrl,
+                        'url' => array('/admin/plans/default'),
                         //'active' => ($c == 'plans') ? true : false,
                         'icon' => Html::icon('percent')
                     ),
                     array(
-                        'label' => Yii::t('PlansModule.default', 'OPTIONS'),
+                        'label' => Yii::t('plans/default', 'OPTIONS'),
                         'url' => array('/admin/plans/options'),
                         //'active' => ($c == 'options') ? true : false,
                         'icon' => Html::icon('percent')
                     ),
                     array(
-                        'label' => Yii::t('PlansModule.default', 'OPTIONS_GROUP'),
+                        'label' => Yii::t('plans/default', 'OPTIONS_GROUP'),
                         'url' => array('/admin/plans/groups'),
                         //'active' => ($c == 'groups') ? true : false,
                         'icon' => Html::icon('percent')

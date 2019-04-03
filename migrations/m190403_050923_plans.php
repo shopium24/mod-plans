@@ -1,5 +1,5 @@
 <?php
-namespace shopimu24\mod\plans\migrations;
+namespace shopium24\mod\plans\migrations;
 /**
  * Generation migrate by PIXELION CMS
  *
@@ -10,7 +10,7 @@ namespace shopimu24\mod\plans\migrations;
  */
 
 use panix\engine\db\Migration;
-use shopimu24\mod\plans\models\Plans;
+use shopium24\mod\plans\models\Plans;
 
 class m190403_050923_plans extends Migration
 {

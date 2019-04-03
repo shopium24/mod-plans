@@ -1,5 +1,5 @@
 <?php
-namespace shopimu24\mod\plans\controllers\admin;
+namespace shopium24\mod\plans\controllers\admin;
 
 use panix\engine\controllers\AdminController;
 class GroupsController extends AdminController {
@@ -20,7 +20,7 @@ class GroupsController extends AdminController {
      * Display discounts list
      */
     public function actionIndex() {
-        $this->pageName = Yii::t('PlansModule.default', 'OPTIONS_GROUP');
+        $this->pageName = Yii::t('plans/default', 'OPTIONS_GROUP');
         $this->breadcrumbs = array(
             $this->module->name => $this->module->adminHomeUrl,
             $this->pageName
@@ -52,15 +52,15 @@ class GroupsController extends AdminController {
             $model = PlansOptionsGroups::model()->findByPk($_GET['id']);
 
         if (!$model)
-            throw new CHttpException(404, Yii::t('PlansModule.admin', 'NO_FOUND_DISCOUNT'));
+            throw new CHttpException(404, Yii::t('plans/admin', 'NO_FOUND_DISCOUNT'));
 
-        $this->pageName = ($model->isNewRecord) ? Yii::t('PlansModule.admin', 'Создание группы') :
-                Yii::t('PlansModule.admin', 'Редактирование группы');
+        $this->pageName = ($model->isNewRecord) ? Yii::t('plans/admin', 'Создание группы') :
+                Yii::t('plans/admin', 'Редактирование группы');
 
 
         $this->breadcrumbs = array(
             $this->module->name => $this->module->adminHomeUrl,
-            Yii::t('PlansModule.default', 'OPTIONS_GROUP') => $this->createUrl('index'),
+            Yii::t('plans/default', 'OPTIONS_GROUP') => $this->createUrl('index'),
             $this->pageName
         );
 

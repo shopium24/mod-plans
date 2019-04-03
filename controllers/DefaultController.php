@@ -1,6 +1,6 @@
 <?php
 
-namespace shopimu24\mod\plans\controllers;
+namespace shopium24\mod\plans\controllers;
 
 use panix\engine\controllers\WebController;
 use Yii;

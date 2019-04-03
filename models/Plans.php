@@ -1,6 +1,6 @@
 <?php
 
-namespace shopimu24\mod\plans\models;
+namespace shopium24\mod\plans\models;
 
 use panix\engine\db\ActiveRecord;
 
@@ -11,21 +11,28 @@ class Plans extends ActiveRecord
 
     public $options;
 
-    public function afterSave()
+    public function afterSave($insert, $changedAttributes)
     {
         $dontDelete = array();
 
         foreach ($_POST['options'] as $id => $value) {
-            $find = PlansOptionsRel::model()->findByAttributes(array(
-                'option_id' => (int)$id,
+            /*$find = PlansOptionsRel::find()->findByAttributes(array(
+                'option_id' => (int)c,
                 'plan_id' => $this->id
-            ));
+            ));*/
+
+
+            $find = PlansOptionsRel::find()->where(array(
+                'option_id' => $id,
+                'plan_id' => $this->id,
+            ))->one();
+
             if (!$find) {
                 $record = new PlansOptionsRel;
                 $record->option_id = (int)$id;
                 $record->plan_id = $this->id;
                 $record->value = $value;
-                $record->save(false, false, false);
+                $record->save(false);
 
             } else {
 
@@ -33,26 +40,21 @@ class Plans extends ActiveRecord
                 $find->option_id = (int)$id;
                 $find->plan_id = $this->id;
                 $find->value = $value;
-                $find->save(false, false, false);
+                $find->save(false);
 
                 $dontDelete[] = $id;
             }
         }
-        // Delete not used relations
-        if (sizeof($dontDelete) > 0) {
-            $cr = new CDbCriteria;
-            $cr->addNotInCondition('option_id', $dontDelete);
 
-            PlansOptionsRel::model()->deleteAllByAttributes(array(
-                'plan_id' => $this->id,
-            ), $cr);
+
+        if (sizeof($dontDelete) > 0) {
+            PlansOptionsRel::deleteAll(
+                ['AND', 'plan_id=:id', ['NOT IN', 'option_id', $dontDelete]], [':id' => $this->id]);
         } else {
             // Delete all relations
-            PlansOptionsRel::model()->deleteAllByAttributes(array(
-                'plan_id' => $this->id,
-            ));
+            PlansOptionsRel::deleteAll('plan_id=:id', [':id' => $this->id]);
         }
-        parent::afterSave();
+        parent::afterSave($insert, $changedAttributes);
     }
 
     public function setOptions(array $categories)
@@ -95,7 +97,7 @@ class Plans extends ActiveRecord
         }
     }
 
-    public function getGridColumns()
+    public function getGridColumns22()
     {
         return array(
             array(
@@ -119,16 +121,17 @@ class Plans extends ActiveRecord
         );
     }
 
-    public function relations()
+
+    public function getOptionsList2()
     {
-        return array(
-            'optionsList2' => array(self::HAS_MANY, 'PlansOptionsRel', 'plan_id'),
-            'optionsList' => array(self::HAS_MANY, 'PlansOptions', 'plan_id'),
-            // 'adminOptionsList' => array(self::HAS_MANY, 'PlansOptionsRel', array('plan_id'=>'option_id')),
-        );
+        return $this->hasMany(PlansOptionsRel::class, ['plan_id' => 'id']);
     }
 
-    public function getForm()
+    public function getOptionsList()
+    {
+        return $this->hasMany(PlansOptions::class, ['plan_id' => 'id']);
+    }
+    public function getForm22()
     {
         Yii::import('zii.widgets.jui.CJuiDatePicker');
         return array(
@@ -140,7 +143,7 @@ class Plans extends ActiveRecord
             'elements' => array(
                 'content' => array(
                     'type' => 'form',
-                    'title' => Yii::t('PlansModule.admin', 'Общая информация'),
+                    'title' => Yii::t('plans/admin', 'Общая информация'),
                     'elements' => array(
                         'name' => array(
                             'type' => 'text',
@@ -227,28 +230,11 @@ class Plans extends ActiveRecord
      */
     public function rules()
     {
-        return array(
-            array('name, price', 'required'),
-            array('id, name, price', 'safe', 'on' => 'search'),
-        );
+        return [
+            [['name', 'price_month','price_6month','price_year'], 'required'],
+           // ['id, name, price', 'safe', 'on' => 'search'],
+        ];
     }
 
-    /**
-     * Retrieves a list of models based on the current search/filter conditions.
-     * @return ActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-     */
-    public function search()
-    {
-        $criteria = new CDbCriteria;
-
-        $criteria->compare('t.id', $this->id);
-        $criteria->compare('t.name', $this->name, true);
-        $criteria->compare('t.price', $this->price);
-
-
-        return new ActiveDataProvider($this, array(
-            'criteria' => $criteria,
-        ));
-    }
 
 }

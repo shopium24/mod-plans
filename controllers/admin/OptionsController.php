@@ -1,6 +1,7 @@
 <?php
-namespace shopimu24\mod\plans\controllers\admin;
+namespace shopium24\mod\plans\controllers\admin;
 
+use Yii;
 use panix\engine\controllers\AdminController;
 
 class OptionsController extends AdminController {
@@ -22,7 +23,7 @@ class OptionsController extends AdminController {
      */
     public function actionIndex() {
 
-        $this->pageName = Yii::t('PlansModule.default', 'OPTIONS');
+        $this->pageName = Yii::t('plans/default', 'OPTIONS');
         $this->breadcrumbs = array(
             $this->module->name => $this->module->adminHomeUrl,
             $this->pageName
@@ -58,22 +59,22 @@ class OptionsController extends AdminController {
             $model = PlansOptions::model()->findByPk($_GET['id']);
 
         if (!$model)
-            throw new CHttpException(404, Yii::t('PlansModule.admin', 'NO_FOUND_DISCOUNT'));
+            throw new CHttpException(404, Yii::t('plans/admin', 'NO_FOUND_DISCOUNT'));
 
-        $this->pageName = ($model->isNewRecord) ? Yii::t('PlansModule.admin', 'Создание опции') :
-                Yii::t('PlansModule.admin', 'Редактирование опции');
+        $this->pageName = ($model->isNewRecord) ? Yii::t('plans/admin', 'Создание опции') :
+                Yii::t('plans/admin', 'Редактирование опции');
 
 
         $this->breadcrumbs = array(
             $this->module->name => $this->module->adminHomeUrl,
-            Yii::t('PlansModule.default', 'OPTIONS') => $this->createUrl('index'),
+            Yii::t('plans/default', 'OPTIONS') => $this->createUrl('index'),
             $this->pageName
         );
 
 
 
         $form = new TabForm($model->getForm(), $model);
-        $form->additionalTabs[Yii::t('PlansModule.admin', 'Options')] = array('content' => $this->renderPartial('_options', array('model' => $model), true));
+        $form->additionalTabs[Yii::t('plans/admin', 'Options')] = array('content' => $this->renderPartial('_options', array('model' => $model), true));
 
         if (Yii::app()->request->isPostRequest) {
             $model->attributes = Yii::app()->request->getPost('PlansOptions');

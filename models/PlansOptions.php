@@ -1,5 +1,5 @@
 <?php
-namespace shopimu24\mod\plans\models;
+namespace shopium24\mod\plans\models;
 
 use panix\engine\db\ActiveRecord;
 class PlansOptions extends ActiveRecord {
@@ -66,13 +66,21 @@ class PlansOptions extends ActiveRecord {
         );
     }
 
-    public function relations() {
+    public function relations2() {
         return array(
-            'group' => array(self::BELONGS_TO, 'PlansOptionsGroups', array('group_id' => 'id')),
+                'group' => array(self::BELONGS_TO, 'PlansOptionsGroups', array('group_id' => 'id')),
             'rels' => array(self::HAS_MANY, 'PlansOptionsRel', 'option_id', 'order' => '`rels`.`plan_id` ASC')
         );
     }
+    public function getRels()
+    {
+        return $this->hasMany(PlansOptionsRel::class, ['option_id' => 'id']);
+    }
 
+    public function getGroup()
+    {
+        return $this->hasMany(PlansOptionsGroups::class, ['option_id' => 'id']);
+    }
 
     /**
      * @return string the associated database table name

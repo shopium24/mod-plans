@@ -1,5 +1,6 @@
 <?php
-namespace shopimu24\mod\plans\migrations;
+
+namespace shopium24\mod\plans\migrations;
 
 /**
  * Generation migrate by PIXELION CMS
@@ -11,9 +12,10 @@ namespace shopimu24\mod\plans\migrations;
  */
 
 use panix\engine\db\Migration;
-use shopimu24\mod\plans\models\PlansOptionsGroups;
+use shopium24\mod\plans\models\PlansOptionsGroups;
 
-class m190403_051959_plans_options_group extends Migration {
+class m190403_051959_plans_options_group extends Migration
+{
 
     /**
      * {@inheritdoc}
@@ -22,16 +24,15 @@ class m190403_051959_plans_options_group extends Migration {
     {
         $this->createTable(PlansOptionsGroups::tableName(), [
             'id' => $this->primaryKey()->unsigned(),
-            'group_id' => $this->integer()->unsigned(),
             'name' => $this->string(255)->notNull(),
-            'hint' => $this->text()->null(),
             'ordern' => $this->integer()->unsigned(),
         ], $this->tableOptions);
 
+        $this->createIndex('ordern', PlansOptionsGroups::tableName(), 'ordern', 0);
 
         $this->batchInsert(PlansOptionsGroups::tableName(), ['name', 'ordern'], [
-            ['Основные возможности', '', 1],
-            ['Товар', '', 2],
+            ['Основные возможности', 1],
+            ['Товар', 2],
         ]);
 
     }
