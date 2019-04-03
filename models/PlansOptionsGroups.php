@@ -1,5 +1,7 @@
 <?php
+namespace shopimu24\mod\plans\models;
 
+use panix\engine\db\ActiveRecord;
 class PlansOptionsGroups extends ActiveRecord {
 
     const MODULE_ID = 'plans';

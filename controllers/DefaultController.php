@@ -1,30 +1,24 @@
 <?php
 
-/**
- * Контроллер статичных страниц
- * 
- * @author CORNER CMS development team <dev@corner-cms.com>
- * @package modules.pages.controllers
- * @uses Controller
- */
-class DefaultController extends Controller {
+namespace shopimu24\mod\plans\controllers;
+
+use panix\engine\controllers\WebController;
+use Yii;
+
+class DefaultController extends WebController
+{
 
 
-    public function actionIndex($category = null) {
-
-        
-        
+    public function actionIndex($category = null)
+    {
 
 
-            $this->pageName = Yii::t('PlansModule.default', 'MODULE_NAME');
-            $this->breadcrumbs = array($this->pageName);
-  
+        $this->pageName = Yii::t('plans/default', 'MODULE_NAME');
+        $this->breadcrumbs = array($this->pageName);
 
-        
-       $this->render('index', array(
-            
-        ));
+
+       return $this->render('index', []);
     }
-  
+
 
 }

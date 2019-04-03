@@ -1,5 +1,7 @@
 <?php
+namespace shopimu24\mod\plans\controllers\admin;
 
+use panix\engine\controllers\AdminController;
 class GroupsController extends AdminController {
 
     public function actions() {

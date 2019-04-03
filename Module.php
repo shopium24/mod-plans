@@ -1,15 +1,8 @@
 <?php
+namespace shopimu24\mod\plans;
 
-class PlansModule extends WebModule {
+class Module extends \panix\engine\WebModule {
 
-    public function init() {
-        $this->setImport(array(
-            $this->id . '.models.*',
-            $this->id . '.components.*',
-        ));
-
-        $this->setIcon('flaticon-add');
-    }
 
     public function afterInstall() {
         Yii::app()->database->import($this->id);

@@ -1,5 +1,8 @@
 <?php
+namespace shopimu24\mod\plans\controllers\admin;
 
+use Yii;
+use panix\engine\controllers\AdminController;
 class DefaultController extends AdminController {
 
     public function actions() {

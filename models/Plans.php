@@ -1,35 +1,41 @@
 <?php
 
-class Plans extends ActiveRecord {
+namespace shopimu24\mod\plans\models;
+
+use panix\engine\db\ActiveRecord;
+
+class Plans extends ActiveRecord
+{
 
     const MODULE_ID = 'plans';
 
     public $options;
 
-    public function afterSave() {
+    public function afterSave()
+    {
         $dontDelete = array();
 
         foreach ($_POST['options'] as $id => $value) {
             $find = PlansOptionsRel::model()->findByAttributes(array(
-                'option_id' => (int) $id,
+                'option_id' => (int)$id,
                 'plan_id' => $this->id
             ));
             if (!$find) {
-                  $record = new PlansOptionsRel;
-                $record->option_id = (int) $id;
+                $record = new PlansOptionsRel;
+                $record->option_id = (int)$id;
                 $record->plan_id = $this->id;
                 $record->value = $value;
                 $record->save(false, false, false);
 
-            }else{
-                
-               // $find = new PlansOptionsRel;
-                $find->option_id = (int) $id;
+            } else {
+
+                // $find = new PlansOptionsRel;
+                $find->option_id = (int)$id;
                 $find->plan_id = $this->id;
                 $find->value = $value;
                 $find->save(false, false, false);
-                
-                                $dontDelete[] = $id;
+
+                $dontDelete[] = $id;
             }
         }
         // Delete not used relations
@@ -39,7 +45,7 @@ class Plans extends ActiveRecord {
 
             PlansOptionsRel::model()->deleteAllByAttributes(array(
                 'plan_id' => $this->id,
-                    ), $cr);
+            ), $cr);
         } else {
             // Delete all relations
             PlansOptionsRel::model()->deleteAllByAttributes(array(
@@ -49,7 +55,8 @@ class Plans extends ActiveRecord {
         parent::afterSave();
     }
 
-    public function setOptions(array $categories) {
+    public function setOptions(array $categories)
+    {
         $dontDelete = array();
 
         foreach ($categories as $id => $value) {
@@ -61,7 +68,7 @@ class Plans extends ActiveRecord {
             die;
             if ($count == 0) {
                 $record = new PlansOptionsRel;
-                $record->option_id = (int) $id;
+                $record->option_id = (int)$id;
                 $record->plan_id = $this->id;
                 $record->value = $value;
 
@@ -79,7 +86,7 @@ class Plans extends ActiveRecord {
 
             PlansOptionsRel::model()->deleteAllByAttributes(array(
                 'plan_id' => $this->id,
-                    ), $cr);
+            ), $cr);
         } else {
             // Delete all relations
             PlansOptionsRel::model()->deleteAllByAttributes(array(
@@ -88,7 +95,8 @@ class Plans extends ActiveRecord {
         }
     }
 
-    public function getGridColumns() {
+    public function getGridColumns()
+    {
         return array(
             array(
                 'name' => 'name',
@@ -111,15 +119,17 @@ class Plans extends ActiveRecord {
         );
     }
 
-    public function relations() {
+    public function relations()
+    {
         return array(
             'optionsList2' => array(self::HAS_MANY, 'PlansOptionsRel', 'plan_id'),
             'optionsList' => array(self::HAS_MANY, 'PlansOptions', 'plan_id'),
-                // 'adminOptionsList' => array(self::HAS_MANY, 'PlansOptionsRel', array('plan_id'=>'option_id')),
+            // 'adminOptionsList' => array(self::HAS_MANY, 'PlansOptionsRel', array('plan_id'=>'option_id')),
         );
     }
 
-    public function getForm() {
+    public function getForm()
+    {
         Yii::import('zii.widgets.jui.CJuiDatePicker');
         return array(
             'attributes' => array(
@@ -204,21 +214,24 @@ class Plans extends ActiveRecord {
       }
      */
 
-    public static function model($className = __CLASS__) {
+    public static function model($className = __CLASS__)
+    {
         return parent::model($className);
     }
 
     /**
      * @return string the associated database table name
      */
-    public function tableName() {
+    public function tableName()
+    {
         return '{{plans}}';
     }
 
     /**
      * @return array validation rules for model attributes.
      */
-    public function rules() {
+    public function rules()
+    {
         return array(
             array('name, price', 'required'),
             array('id, name, price', 'safe', 'on' => 'search'),
@@ -229,7 +242,8 @@ class Plans extends ActiveRecord {
      * Retrieves a list of models based on the current search/filter conditions.
      * @return ActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
-    public function search() {
+    public function search()
+    {
         $criteria = new CDbCriteria;
 
         $criteria->compare('t.id', $this->id);
