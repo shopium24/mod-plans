@@ -12,6 +12,8 @@ namespace shopium24\mod\plans\migrations;
  */
 
 use panix\engine\db\Migration;
+use shopium24\mod\plans\models\Plans;
+use shopium24\mod\plans\models\PlansOptions;
 use shopium24\mod\plans\models\PlansOptionsRel;
 
 class m190403_052221_plans_options_rel extends Migration
@@ -28,8 +30,13 @@ class m190403_052221_plans_options_rel extends Migration
             'option_id' => $this->integer()->unsigned()->notNull(),
             'value' => $this->text()->null(),
         ], $this->tableOptions);
+
         $this->createIndex('plan_id', PlansOptionsRel::tableName(), 'plan_id', 0);
         $this->createIndex('option_id', PlansOptionsRel::tableName(), 'option_id', 0);
+
+        $this->addForeignKey('{{fk_plans_options_rel}}', PlansOptionsRel::tableName(), 'plan_id', Plans::tableName(), 'id');
+        $this->addForeignKey('{{fk_plans_options_rel_opt}}', PlansOptionsRel::tableName(), 'option_id', PlansOptions::tableName(), 'id');
+
     }
 
     /**

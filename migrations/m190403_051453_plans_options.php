@@ -13,6 +13,7 @@ namespace shopium24\mod\plans\migrations;
 
 use panix\engine\db\Migration;
 use shopium24\mod\plans\models\PlansOptions;
+use shopium24\mod\plans\models\PlansOptionsGroups;
 
 class m190403_051453_plans_options extends Migration
 {
@@ -32,9 +33,12 @@ class m190403_051453_plans_options extends Migration
 
         $this->createIndex('ordern', PlansOptions::tableName(), 'ordern', 0);
 
+        //$this->addForeignKey('{{fk_options_group}}', PlansOptions::tableName(), 'group_id', PlansOptionsGroups::tableName(), 'id');
+
+
         $this->batchInsert(PlansOptions::tableName(), ['group_id', 'name', 'hint', 'ordern'], [
-            [1, 'Возможность сайта на своём домене', '', 14],
-            [2, 'Количество товаров', '', 18],
+            [1, 'Возможность сайта на своём домене', '', 3],
+            [2, 'Количество товаров', '', 2],
             [1, 'SMS рассылка', '', 1],
         ]);
 
