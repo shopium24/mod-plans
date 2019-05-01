@@ -76,7 +76,7 @@ class PlansOptionsSearch extends PlansOptions
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'translations.name', $this->name]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
 
 
