@@ -23,70 +23,83 @@ class m190501_013031_plans_options_rel_insert extends Migration
     // Use up()/down() to run migration code without a transaction.
     public function up()
     {
+
         $this->batchInsert(PlansOptionsRel::tableName(), ['plan_id', 'option_id', 'value'], [
             [self::BASIC, 1, '1'],
             [self::STANDARD, 1, '1'],
-            [self::PREMIUM, 1, '0'],
-        ]);
+            [self::PREMIUM, 1, '1'],
 
-        $this->batchInsert(PlansOptionsRel::tableName(), ['plan_id', 'option_id', 'value'], [
-            ['3', '3', '1'],
-            ['2', '3', '0'],
-            ['1', '12', '1'],
-            ['3', '2', 'не ограничено'],
-            ['2', '2', '10000'],
-            ['1', '11', '0'],
-            ['3', '1', '1'],
-            ['2', '1', '1'],
-            ['1', '1', '1'],
-            ['2', '4', '1'],
-            ['3', '4', '1'],
-            ['1', '10', '0'],
-            ['2', '5', '0'],
-            ['3', '5', '1'],
-            ['1', '9', '0'],
-            ['2', '6', '1'],
-            ['3', '6', '1'],
-            ['1', '8', '0'],
-            ['2', '7', '1'],
-            ['3', '7', '1'],
-            ['1', '7', '0'],
-            ['2', '8', '1'],
-            ['3', '8', '1'],
-            ['1', '6', '1'],
-            ['2', '9', '1'],
-            ['3', '9', '1'],
-            ['1', '5', '0'],
-            ['2', '10', '1'],
-            ['3', '10', '1'],
-            ['1', '4', '1'],
-            ['2', '11', '1'],
-            ['3', '11', '1'],
-            ['1', '3', '0'],
-            ['2', '12', '1'],
-            ['3', '12', '1'],
-            ['1', '2', '1000'],
-            ['2', '13', '1'],
-            ['3', '13', '1'],
-            ['2', '14', '1'],
-            ['3', '14', '1'],
-            ['1', '14', '1'],
-            ['1', '13', '1'],
-            ['1', '15', '1'],
-            ['2', '15', '1'],
-            ['3', '15', '1'],
-            ['1', '16', '500 Мб'],
-            ['2', '16', '1 Гб'],
-            ['3', '16', '2 Гб'],
-            ['1', '17', 'до 3 шт.'],
-            ['2', '17', 'до 5 шт.'],
-            ['3', '17', 'до 10 шт.'],
-            ['1', '18', '0'],
-            ['2', '18', '1'],
-            ['3', '18', '1'],
-            ['1', '19', '1'],
-            ['2', '19', '1'],
-            ['3', '19', '1']
+            [self::BASIC, 2, '1000'],
+            [self::STANDARD, 2, '10000'],
+            [self::PREMIUM, 2, 'не ограничено'],
+
+            [self::BASIC, 3, '0'],
+            [self::STANDARD, 3, '0'],
+            [self::PREMIUM, 3, '1'],
+
+            [self::BASIC, 4, '1'],
+            [self::STANDARD, 4, '1'],
+            [self::PREMIUM, 4, '1'],
+
+            [self::BASIC, 5, '0'],
+            [self::STANDARD, 5, '0'],
+            [self::PREMIUM, 5, '1'],
+
+            [self::BASIC, 6, '1'],
+            [self::STANDARD, 6, '1'],
+            [self::PREMIUM, 6, '1'],
+
+            [self::BASIC, 7, '0'],
+            [self::STANDARD, 7, '1'],
+            [self::PREMIUM, 7, '1'],
+
+            [self::BASIC, 8, '0'],
+            [self::STANDARD, 8, '1'],
+            [self::PREMIUM, 8, '1'],
+
+            [self::BASIC, 9, '0'],
+            [self::STANDARD, 9, '1'],
+            [self::PREMIUM, 9, '1'],
+
+            [self::BASIC, 10, '0'],
+            [self::STANDARD, 10, '1'],
+            [self::PREMIUM, 10, '1'],
+
+            [self::BASIC, 11, '0'],
+            [self::STANDARD, 11, '1'],
+            [self::PREMIUM, 11, '1'],
+
+            [self::BASIC, 12, '1'],
+            [self::STANDARD, 12, '1'],
+            [self::PREMIUM, 12, '1'],
+
+            [self::BASIC, 13, '1'],
+            [self::STANDARD, 13, '1'],
+            [self::PREMIUM, 13, '1'],
+
+            [self::BASIC, 14, '1'],
+            [self::STANDARD, 14, '1'],
+            [self::PREMIUM, 14, '1'],
+
+            [self::BASIC, 15, '1'],
+            [self::STANDARD, 15, '1'],
+            [self::PREMIUM, 15, '1'],
+
+            [self::BASIC, 16, '500 Мб'],
+            [self::STANDARD, 16, '1 Гб'],
+            [self::PREMIUM, 16, '2 Гб'],
+
+            [self::BASIC, 17, 'до 3 шт.'],
+            [self::STANDARD, 17, 'до 5 шт.'],
+            [self::PREMIUM, 17, 'до 10 шт.'],
+
+            [self::BASIC, 18, '0'],
+            [self::STANDARD, 18, '1'],
+            [self::PREMIUM, 18, '1'],
+
+            [self::BASIC, 19, '1'],
+            [self::STANDARD, 19, '1'],
+            [self::PREMIUM, 19, '1']
         ]);
 
 
