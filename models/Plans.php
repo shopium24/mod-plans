@@ -218,7 +218,7 @@ class Plans extends ActiveRecord
      */
 
     /**
-     * @return string the associated database table name
+     * @inheritdoc
      */
     public static function tableName()
     {

@@ -36,3 +36,7 @@ Add to web config.
 ],
 ```
 
+#### Migrate
+```
+php yii migrate --migrationPath=vendor/shopium24/mod-plans/migrations
+```
