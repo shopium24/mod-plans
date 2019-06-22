@@ -97,30 +97,6 @@ class Plans extends ActiveRecord
         }
     }
 
-    public function getGridColumns22()
-    {
-        return array(
-            array(
-                'name' => 'name',
-                'type' => 'raw',
-                'value' => 'Html::link(Html::encode($data->name), array("/admin/plans/default/update", "id"=>$data->id))',
-            ),
-            array(
-                'name' => 'price',
-                'type' => 'raw',
-                'value' => '$data->price',
-            ),
-
-            'DEFAULT_CONTROL' => array(
-                'class' => 'ButtonColumn',
-                'template' => '{update}{delete}',
-            ),
-            'DEFAULT_COLUMNS' => array(
-                array('class' => 'CheckBoxColumn')
-            ),
-        );
-    }
-
 
     public function getOptionsList2()
     {
@@ -131,91 +107,11 @@ class Plans extends ActiveRecord
     {
         return $this->hasMany(PlansOptions::class, ['plan_id' => 'id']);
     }
-    public function getForm22()
-    {
-        Yii::import('zii.widgets.jui.CJuiDatePicker');
-        return array(
-            'attributes' => array(
-                'id' => __CLASS__,
-                'class' => 'form-horizontal',
-            ),
-            'showErrorSummary' => true,
-            'elements' => array(
-                'content' => array(
-                    'type' => 'form',
-                    'title' => Yii::t('plans/admin', 'Общая информация'),
-                    'elements' => array(
-                        'name' => array(
-                            'type' => 'text',
-                        ),
-                        'price' => array(
-                            'type' => 'text',
-                        ),
 
-                    ),
-                ),
-            ),
-            'buttons' => array(
-                'submit' => array(
-                    'type' => 'submit',
-                    'class' => 'btn btn-success',
-                    'label' => ($this->isNewRecord) ? Yii::t('app', 'CREATE', 0) : Yii::t('app', 'CREATE', 1)
-                )
-            )
-        );
-    }
 
-    /*
-      public function getForm() {
-      Yii::import('zii.widgets.jui.CJuiDatePicker');
-      return new CMSForm(array(
-      'id' => __CLASS__,
-      'elements' => array(
-      'name' => array(
-      'type' => 'text',
-      ),
-      'switch' => array(
-      'type' => 'checkbox',
-      ),
-      'sum' => array(
-      'type' => 'text',
-      'hint' => $this->t('HINT_SUM'),
-      ),
-      'start_date' => array(
-      'type' => 'CJuiDatePicker',
-      'options' => array(
-      'dateFormat' => 'yy-mm-dd ' . date('H:i:s'),
-      ),
-      ),
-      'end_date' => array(
-      'type' => 'CJuiDatePicker',
-      'options' => array(
-      'dateFormat' => 'yy-mm-dd ' . date('H:i:s'),
-      ),
-      ),
-      'manufacturers' => array(
-      'type' => 'dropdownlist',
-      'items' => CHtml::listData(ShopManufacturer::model()->orderByName()->findAll(), 'id', 'name'),
-      'multiple' => 'multiple',
-      'data-placeholder' => $this->t('HINT_MANUFACTURERS'),
-      ),
-      'userRoles' => array(
-      'type' => 'dropdownlist',
-      'items' => DiscountHelper::getRoles(),
-      'multiple' => 'multiple',
-      'hint' => $this->t('HINT_USER_ROLES'),
-      ),
-      ),
-      'buttons' => array(
-      'submit' => array(
-      'type' => 'submit',
-      'class' => 'buttonS bGreen',
-      'label' => ($this->isNewRecord) ? Yii::t('app', 'CREATE', 0) : Yii::t('app', 'SAVE')
-      )
-      ),
-      ),$this);
-      }
-     */
+
+
+
 
     /**
      * @inheritdoc

@@ -9,9 +9,8 @@ class PlansOptionsRel extends ActiveRecord
 
     const MODULE_ID = 'plans';
 
-
     /**
-     * @return string the associated database table name
+     * @inheritdoc
      */
     public static function tableName()
     {
@@ -23,10 +22,9 @@ class PlansOptionsRel extends ActiveRecord
      */
     public function rules()
     {
-        return array(
-            array('plan_id', 'required'),
-            array('id, plan_id', 'safe', 'on' => 'search'),
-        );
+        return [
+            ['plan_id', 'required'],
+        ];
     }
 
 
