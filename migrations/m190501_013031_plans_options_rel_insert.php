@@ -107,9 +107,7 @@ class m190501_013031_plans_options_rel_insert extends Migration
 
     public function down()
     {
-        echo "m190501_013031_plans_options_rel_insert cannot be reverted.\n";
         $this->truncateTable(PlansOptionsRel::tableName());
-        return false;
     }
 
     private function getList()

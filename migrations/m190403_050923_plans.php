@@ -43,7 +43,6 @@ class m190403_050923_plans extends Migration
     public function down()
     {
         $this->dropTable(Plans::tableName());
-        return false;
     }
 
 }

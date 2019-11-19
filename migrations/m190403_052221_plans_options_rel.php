@@ -45,7 +45,6 @@ class m190403_052221_plans_options_rel extends Migration
     public function down()
     {
         $this->dropTable(PlansOptionsRel::tableName());
-        return false;
     }
 
 }
