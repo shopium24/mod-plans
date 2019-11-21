@@ -89,8 +89,8 @@ class m190501_013031_plans_options_rel_insert extends Migration
             [self::STANDARD, 16, '1 Гб'],
             [self::PREMIUM, 16, '2 Гб'],
 
-            [self::BASIC, 17, 'до 3 шт.'],
-            [self::STANDARD, 17, 'до 5 шт.'],
+            [self::BASIC, 17, '1 шт.'],
+            [self::STANDARD, 17, 'до 3 шт.'],
             [self::PREMIUM, 17, 'до 10 шт.'],
 
             [self::BASIC, 18, '0'],
